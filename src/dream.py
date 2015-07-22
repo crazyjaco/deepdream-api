@@ -4,8 +4,8 @@ from batcountry import BatCountry
 from PIL import Image
 import numpy as np
 
-# dream.py <path_to_guide_image> <path_to_source_image> <path_to_save_image> <path_to_model>
-# ./dream ./guide.jpg ./in.jpg ./out.jpg /opt/caffe/models/bvlc_googlenet
+# dream.py <path_to_guide_image> <path_to_source_image> <path_to_save_image>
+# ./dream ./guide.jpg ./in.jpg ./out.jpg
 guide = sys.argv[1]
 imgin = sys.argv[2]
 imgout = sys.argv[3]
