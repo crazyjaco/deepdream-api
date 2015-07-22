@@ -24,7 +24,6 @@ $app->post('/upload', function(){
 		$ok=0;
 	}
  
-	 //Here we check that $ok was not set to 0 by an error 
 	if($ok==0){ 
 		print '<form enctype="multipart/form-data" action="" method="POST">
 	        <input name="upload" type="file" /><input type="submit" value="Upload" />
