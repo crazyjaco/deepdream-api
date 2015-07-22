@@ -34,17 +34,19 @@ $app->post('/upload', function(){
 		if(move_uploaded_file($_FILES['upload']['tmp_name'], $target)){ 
 			require_once "inc/db.php";
 			$db = $m->deepdreamapi;
-			$collection = $db->queue;
+			$collection = $db->dreams;
 			$dream_id = md5(base64_encode(rand()));
-			print json_encode(array(
+			$data = array(
 				$dream_id => array("status" => "queued",
-					"dream_url" => "http://$_SERVER[HTTP_HOST]" . "/dream/$dream_id",
+					"dream_id" => "$dream_id",
+					"dream_url" => "http://$_SERVER[HTTP_HOST]" . "/dream/$dream_id.$file_ext",
 					"uploaded" => time(),
 					"file_type" => "$file_ext",
 					"file_size" => $_FILES['upload']['size'],
-					"file_orig" => "http://$_SERVER[HTTP_HOST]" . "/" .$target,
-					"file_name" => $target)),
-					JSON_PRETTY_PRINT);
+					"file_orig" => "http://$_SERVER[HTTP_HOST]" . "$target",
+					"file_name" => "$target"));
+				$collection->insert($data);
+			print json_encode($data, JSON_PRETTY_PRINT);
 		} else { 
 			print json_encode(array("status" => "error"), JSON_PRETTY_PRINT);
 		}
