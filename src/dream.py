@@ -9,9 +9,8 @@ import numpy as np
 guide = sys.argv[1]
 imgin = sys.argv[2]
 imgout = sys.argv[3]
-model = sys.argv[4]
 
-bc = BatCountry(model)
+bc = BatCountry("/opt/caffe/models/bvlc_googlenet")
 features = bc.prepare_guide(Image.open(guide))
 image = bc.dream(np.float32(Image.open(imgin)),
 	iter_n=20, objective_fn=BatCountry.guided_objective,
