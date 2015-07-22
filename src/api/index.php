@@ -9,7 +9,7 @@ $app->notFound(function () use ($app) {
 });
 
 $app->post('/upload', function(){
-	$target = "uploads/"; 
+	$target = "/opt/deepdream-api/in/"; 
 	if($_FILES){
 		$target = $target . basename( $_FILES['upload']['name']);
 	}
