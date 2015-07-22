@@ -38,7 +38,7 @@ $app->post('/upload', function(){
 			$dream_id = md5(base64_encode(rand()));
 			print json_encode(array(
 				$dream_id => array("status" => "queued",
-					"dream_url" => "http://$_SERVER[HTTP_HOST]" . "/dream/$dream_id.$file_ext",
+					"dream_url" => "http://$_SERVER[HTTP_HOST]" . "/dream/$dream_id",
 					"uploaded" => time(),
 					"file_type" => "$file_ext",
 					"file_size" => $_FILES['upload']['size'],

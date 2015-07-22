@@ -11,7 +11,7 @@ ubuntu@ubuntu:~$ curl -s -X POST -F "upload=@/home/ubuntu/images/kitty.jpg" http
 {
     "dc4c71d79843a261cae70486a0f0b54a": {
         "status": "queued",
-        "dream_url": "http:\/\/localhost\/dream\/dc4c71d79843a261cae70486a0f0b54a.jpg",
+        "dream_url": "http:\/\/localhost\/dream\/dc4c71d79843a261cae70486a0f0b54a",
         "uploaded": 1437542491,
         "file_type": "jpg",
         "file_size": 89071,
