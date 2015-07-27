@@ -1,4 +1,7 @@
 <?php
+$config = json_decode(file_get_contents("../config.json"), true);
+$target = $config['input_dir'];
+
 require 'vendor/autoload.php';
 $app = new \Slim\Slim();
 
@@ -9,9 +12,9 @@ $app->notFound(function () use ($app) {
 });
 
 $app->post('/upload', function(){
-	$target = "/opt/deepdream-api/in/"; 
+	$target = __DIR__ . "/input/"; 
 	if($_FILES){
-		$target = $target . basename( $_FILES['upload']['name']);
+		$target = $target . basename($_FILES['upload']['name']);
 	}
 	$file_ext = pathinfo($target,PATHINFO_EXTENSION);
 	$ok=1;
@@ -32,20 +35,18 @@ $app->post('/upload', function(){
 	        $app = \Slim\Slim::getInstance();
 	        $app->response()->headers->set('Content-Type', 'application/json');
 		if(move_uploaded_file($_FILES['upload']['tmp_name'], $target)){ 
-			require_once "inc/db.php";
+			require_once __DIR__ . "/inc/db.php";
 			$db = $m->deepdreamapi;
 			$collection = $db->dreams;
 			$dream_id = md5(base64_encode(rand()));
 			$data = array(
 				$dream_id => array("status" => "queued",
 					"dream_id" => "$dream_id",
-					"dream_url" => "http://$_SERVER[HTTP_HOST]" . "/dream/$dream_id.$file_ext",
 					"uploaded" => time(),
 					"file_type" => "$file_ext",
 					"file_size" => $_FILES['upload']['size'],
-					"file_orig" => "http://$_SERVER[HTTP_HOST]" . "$target",
 					"file_name" => "$target"));
-				$collection->insert($data);
+			$collection->insert($data);
 			print json_encode($data, JSON_PRETTY_PRINT);
 		} else { 
 			print json_encode(array("status" => "error"), JSON_PRETTY_PRINT);

@@ -1,0 +1,6 @@
+{
+	"input_dir": "/opt/deepdream-api/input/",
+	"output_dir": "/opt/deepdream-api/dream/",
+	"api-www-root": "/var/www/html"
+  
+}
