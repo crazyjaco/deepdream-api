@@ -1,7 +1,4 @@
 <?php
-$config = json_decode(file_get_contents("../config.json"), true);
-$target = $config['input_dir'];
-
 require 'vendor/autoload.php';
 $app = new \Slim\Slim();
 
@@ -39,10 +36,14 @@ $app->post('/upload', function(){
 			$db = $m->deepdreamapi;
 			$collection = $db->dreams;
 			$dream_id = md5(base64_encode(rand()));
+			$file_md5 = md5_file($target);
+			rename($target, __DIR__ . "/input/" . "$file_md5.$file_ext");
+			$target = "$file_md5.$file_ext";
 			$data = array(
 				$dream_id => array("status" => "queued",
 					"dream_id" => "$dream_id",
 					"uploaded" => time(),
+					"file_md5" => md5_file(__DIR__ . "/input/" . "$file_md5.$file_ext"),
 					"file_type" => "$file_ext",
 					"file_size" => $_FILES['upload']['size'],
 					"file_name" => "$target"));
