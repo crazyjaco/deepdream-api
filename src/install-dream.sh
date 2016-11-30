@@ -17,7 +17,7 @@ update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.6 30
 cd /opt && git clone https://github.com/BVLC/caffe.git
 cd /opt && wget https://google-glog.googlecode.com/files/glog-0.3.3.tar.gz && tar zxvf glog-0.3.3.tar.gz && cd /opt/glog-0.3.3 && ./configure && make && make install
 cd /opt && wget https://github.com/schuhschuh/gflags/archive/master.zip && unzip master.zip && cd /opt/gflags-master && mkdir build && cd /opt/gflags-master/build && export CXXFLAGS="-fPIC" && cmake .. && make VERBOSE=1 && make && make install
-cd /opt/caffe && cp Makefile.config.example Makefile.config && echo "CPU_ONLY := 1" >> Makefile.config && echo "CXX := /usr/bin/g++-4.6" >> Makefile.config && sed -i 's/CXX :=/CXX ?=/' Makefile && make all
+cd /opt/caffe && cp Makefile.config.example Makefile.config && echo "CPU_ONLY := 1" >> Makefile.config && echo "CXX := /usr/bin/g++" >> Makefile.config && sed -i 's/CXX :=/CXX ?=/' Makefile && make all
 ldconfig
 cd /opt/caffe && pip install -r python/requirements.txt
 cd /opt/caffe && make pycaffe
